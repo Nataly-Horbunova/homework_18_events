@@ -3,10 +3,10 @@
   const wrapper = document.querySelector('.wrapper');
   wrapper.addEventListener('click', handler);
 
-  function handler(event) {
-    const targetSquare = event.target;
+  function handler({target: targetSquare}) {
     if (!targetSquare.classList.contains('square')) return;
-    event.target.remove();
+
+    targetSquare.remove();
     this.append(targetSquare);
     highlight(targetSquare);
   }
@@ -35,6 +35,7 @@
   }
 
   //  ======== TASK 2 ========== 
+  
   const table = document.querySelector('.table');
   const td = document.querySelectorAll('.table-data');
   td.forEach(elem => elem.textContent = randomNum(1, 100));
@@ -45,11 +46,11 @@
 
   table.addEventListener('click', tableHandler);
 
-  function tableHandler(event) {
-    const targetTd = event.target;
+  function tableHandler({target}) {  
+    let targetTd = target.closest('.table-data');
 
-    if (!targetTd.classList.contains('table-data')) return;
-
+    if (!targetTd) return;
+    
     const tdText = document.querySelector('.table-data-text');
     tdText.textContent = `Selected number: ${targetTd.textContent}`;
   }
